@@ -70,5 +70,4 @@ const createPhotoDescription = () => ({
 });
 
 const photoDiscriptions = Array.from({length: 25}, createPhotoDescription);
-
 photoDiscriptions();
