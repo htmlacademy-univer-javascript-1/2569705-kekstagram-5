@@ -34,19 +34,19 @@ const generateCommentId = createRandomNumber(1, 10000);
 const generateAvatar = createRandomNumber(1, 6);
 
 const createComment = () => ({
-  id: generateCommentId(),
-  avatar: `img/avatar-${ generateAvatar() }.svg`,
+  id: generateCommentId,
+  avatar: `img/avatar-${ generateAvatar }.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES)
 });
 
 const createPhotoDescription = () => ({
-  id: generateId(),
-  url: `photos/${ generateUrl() }.jpg`,
+  id: generateId,
+  url: `photos/${ generateUrl }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: generateCntOfLikes(),
   comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
 });
 
-const photoDiscriptions = Array.from({length: 25}, createPhotoDescription);
+const photoDiscriptions = () => Array.from({length: 25}, createPhotoDescription);
 export {photoDiscriptions};

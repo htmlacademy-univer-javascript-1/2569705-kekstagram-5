@@ -1,2 +1,3 @@
 import {photoDiscriptions} from './data.js';
-photoDiscriptions();
+import {renderSmallPictures} from './smallPictures.js';
+renderSmallPictures(photoDiscriptions());
