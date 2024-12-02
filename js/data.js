@@ -41,7 +41,7 @@ const createComment = () => ({
 });
 
 const createPhotoDescription = () => ({
-  id: generateId(),
+  id: generateId,
   url: `photos/${ generateUrl() }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: generateCntOfLikes(),
