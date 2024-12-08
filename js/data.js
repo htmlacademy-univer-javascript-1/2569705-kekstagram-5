@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomArrayElement, createRandomNumber} from './util.js';
+import {getRandomInteger, getRandomArrayElement, createRandomNumber, createNumbersMassive} from './util.js';
 const NAMES = [
   'Мария',
   'Никита',
@@ -31,11 +31,11 @@ const generateId = createRandomNumber(1, 25);
 const generateUrl = createRandomNumber(1, 25);
 const generateCntOfLikes = createRandomNumber(15, 200);
 const generateCommentId = createRandomNumber(1, 10000);
-const generateAvatar = createRandomNumber(1, 6);
+const generateAvatar = createNumbersMassive(1, 6);
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${ generateAvatar }.svg`,
+  avatar: `img/avatar-${ getRandomArrayElement(generateAvatar) }.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES)
 });
