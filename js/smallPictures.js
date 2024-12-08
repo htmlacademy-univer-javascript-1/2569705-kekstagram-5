@@ -1,3 +1,5 @@
+import {showBigPicture} from './showBigPicture.js';
+
 const smallPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
@@ -8,6 +10,12 @@ const createSmallPicture = (picture) => {
   smallPicture.querySelector('.picture__img').alt = description;
   smallPicture.querySelector('.picture__comments').textContent = comments.length;
   smallPicture.querySelector('.picture__likes').textContent = likes;
+
+  const onPictureElementClick = (evt) => {
+    evt.preventDefault();
+    showBigPicture(picture);
+  };
+  smallPicture.addEventListener('click', onPictureElementClick);
 
   return smallPicture;
 };
@@ -21,4 +29,4 @@ const renderSmallPictures = (pictures) => {
   container.append(fragment);
 };
 
-export { renderSmallPictures };
+export {renderSmallPictures};
