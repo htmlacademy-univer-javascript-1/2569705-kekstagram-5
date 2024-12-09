@@ -31,4 +31,5 @@ const closeOnEscKeyDown = (evt, closeFunction) => {
     closeFunction();
   }
 };
+
 export {getRandomInteger, getRandomArrayElement, createRandomNumber, closeOnEscKeyDown, createNumbersMassive};
