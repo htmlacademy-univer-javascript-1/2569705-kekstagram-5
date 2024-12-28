@@ -29,4 +29,6 @@ const renderSmallPictures = (pictures) => {
   container.append(fragment);
 };
 
-export {renderSmallPictures};
+const deletePhotos = () => container.querySelectorAll('.picture').forEach((element) => element.remove());
+
+export {renderSmallPictures, deletePhotos};
