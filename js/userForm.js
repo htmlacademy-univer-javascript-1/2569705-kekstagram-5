@@ -1,5 +1,7 @@
 import { addFilters, operateScale, onFilterClick, setDefaultFilter,
-  imagePreview, scaleOutput,filterButtonList } from './effects.js';
+  imagePreview, scaleOutput, filterButtonList, imageForm } from './effects.js';
+import { uploadData } from './fetch.js';
+import { showUploadErrorMessage, showUploadSucccessMessage } from './util.js';
 const form = document.querySelector('.img-upload__form');
 const scaleDecreaseButton = form.querySelector('.scale__control--smaller');
 const scaleAddButton = form.querySelector('.scale__control--bigger');
@@ -19,6 +21,11 @@ const hashtagField = form.querySelector('.text__hashtags');
 const descriptionField = form.querySelector('.text__description');
 const uploadInput = document.querySelector('.img-upload__input');
 
+const submitButton = document.querySelector('.img-upload__submit');
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -109,3 +116,32 @@ pristine.addValidator(
 
 uploadInput.addEventListener('change', onFileInputChange);
 form.querySelector('.img-upload__cancel').addEventListener('click', onCancelButtonClick);
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const onFormSubmitSuccess = () => {
+  showUploadSucccessMessage();
+  hideModal();
+};
+
+const setFormSubmit = () => {
+  imageForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if(isValid){
+      blockSubmitButton();
+      uploadData(onFormSubmitSuccess, showUploadErrorMessage, new FormData(evt.target))
+        .finally(() => unblockSubmitButton());
+    }
+  });
+};
+
+export {setFormSubmit};
