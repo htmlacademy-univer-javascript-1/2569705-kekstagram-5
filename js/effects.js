@@ -23,7 +23,7 @@ const FILTERS = {
 const imageForm = document.querySelector('.img-upload__form');
 const slider = document.querySelector('.effect-level__slider');
 const effectLevel = imageForm.querySelector('.effect-level__value');
-const imagePreview = imageForm.querySelector('.img-upload__preview img');
+const imagePreview = imageForm.querySelector('.img-upload__preview');
 const scaleOutput = imageForm.querySelector('.scale__control--value');
 const filterButtonList = document.querySelector('.effects__list');
 
@@ -92,4 +92,4 @@ const onFilterClick = (evt) => {
 const addFilters = () => filterButtonList.addEventListener('click', onFilterClick);
 export {
   addFilters, operateScale, onFilterClick, setDefaultFilter,
-  imagePreview, scaleOutput, filterButtonList};
+  imagePreview, scaleOutput, filterButtonList, imageForm};
