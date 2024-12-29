@@ -1,38 +1,38 @@
 import { addFilters, operateScale, onFilterClick, setDefaultFilter,
   imagePreview, scaleOutput, filterButtonList, imageForm } from './effects.js';
 import { uploadData } from './fetch.js';
-import { setPreview } from './myImage.js';
+import { setPreview } from './user-file.js';
 import { showUploadErrorMessage, showUploadSucccessMessage } from './util.js';
-const form = document.querySelector('.img-upload__form');
-const scaleDecreaseButton = form.querySelector('.scale__control--smaller');
-const scaleAddButton = form.querySelector('.scale__control--bigger');
 
 const MAX_HASHTAGS_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const MAX_COMMENT_LENGTH = 140;
+
 const ErrorText = {
   INVALID_COUNT: `Максимум ${MAX_HASHTAGS_COUNT} хештегов`,
   NOT_UNIQUE: 'Хештеги должны быть уникальными',
   INVALID_PATTERN: 'Неправильный хештег'
 };
 
-
+const form = document.querySelector('.img-upload__form');
+const scaleDecreaseButton = form.querySelector('.scale__control--smaller');
+const scaleAddButton = form.querySelector('.scale__control--bigger');
 const overlay = form.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
 const hashtagField = form.querySelector('.text__hashtags');
 const descriptionField = form.querySelector('.text__description');
 const uploadInput = document.querySelector('.img-upload__input');
-
+const uploudCancel = form.querySelector('.img-upload__cancel');
 const submitButton = document.querySelector('.img-upload__submit');
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
-  SENDING: 'Публикую...'
+  SENDING: 'Публикую'
 };
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper'
 });
-
 
 const showModal = () => {
   overlay.classList.remove('hidden');
@@ -69,10 +69,10 @@ const nomalizeHashtags = (hashtagString) =>
 
 const isTextFieldFocused = () =>
   document.activeElement === hashtagField ||
-  document.activeElement === form.querySelector('.text__description');
+  document.activeElement === descriptionField;
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused()) {
+  if (evt.key === 'Escape' && !isTextFieldFocused() && !document.querySelector('.error')) {
     evt.preventDefault();
     hideModal();
   }
@@ -116,8 +116,15 @@ pristine.addValidator(
   true
 );
 
+const validateComments = (value) => {
+  value = value.trim();
+  return value.length <= MAX_COMMENT_LENGTH;
+};
+
+pristine.addValidator(descriptionField, validateComments, 'Комментарий длиннее 140 символов');
+
 uploadInput.addEventListener('change', onFileInputChange);
-form.querySelector('.img-upload__cancel').addEventListener('click', onCancelButtonClick);
+uploudCancel.addEventListener('click', onCancelButtonClick);
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;

@@ -12,7 +12,7 @@ class Filter {
   }
 }
 
-const FILTERS = {
+const Filters = {
   'effect-chrome' : new Filter('grayscale', 0, 1, 0.1),
   'effect-sepia' : new Filter('sepia', 0 , 1, 0.1),
   'effect-marvin' : new Filter('invert', 0, 1, 0.01),
@@ -23,7 +23,7 @@ const FILTERS = {
 const imageForm = document.querySelector('.img-upload__form');
 const slider = document.querySelector('.effect-level__slider');
 const effectLevel = imageForm.querySelector('.effect-level__value');
-const imagePreview = imageForm.querySelector('.img-upload__preview');
+const imagePreview = imageForm.querySelector('.img-upload__preview img');
 const scaleOutput = imageForm.querySelector('.scale__control--value');
 const filterButtonList = document.querySelector('.effects__list');
 
@@ -70,7 +70,7 @@ const onFilterClick = (evt) => {
   if (evt.target.matches('input[type=radio]')) {
     if (evt.target.id !== 'effect-none') {
       slider.parentElement.classList.remove('hidden');
-      const filter = FILTERS[`${evt.target.id}`];
+      const filter = Filters[`${evt.target.id}`];
       slider.noUiSlider.updateOptions({
         range: {
           min: filter.min,

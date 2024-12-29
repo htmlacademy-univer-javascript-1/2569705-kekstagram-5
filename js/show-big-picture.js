@@ -41,7 +41,7 @@ const renderComments = () => {
 
   commentsCount = (commentsCount > currentComments.length) ? currentComments.length : commentsCount;
 
-  const commentsSelected = currentComments.slice(0, commentsCount);
+  const selectedComments = currentComments.slice(0, commentsCount);
 
   if (currentComments.length <= COMMENTS_STEP || commentsCount >= currentComments.length) {
     loadComments.classList.add('hidden');
@@ -49,9 +49,9 @@ const renderComments = () => {
     loadComments.classList.remove('hidden');
   }
 
-  socialCommentsCount.innerHTML = `${commentsCount} из <span class="comments-count">${currentComments.length}</span> комментариев`;
+  socialCommentsCount.innerHTML = `<span class="social__comment-shown-count">${commentsCount}</span> из <span class="social__comment-total-count">${currentComments.length}</span> комментариев`;
 
-  commentsSelected.forEach(createComment);
+  selectedComments.forEach(createComment);
   socialComments.appendChild(commentFragment);
 };
 
@@ -72,16 +72,13 @@ const closeBigPicture = () => {
 const onBigPictureEscKeyDown = (evt) => {
   closeOnEscKeyDown(evt, () => {
     closeBigPicture();
-
     document.removeEventListener('keydown', onBigPictureEscKeyDown);
     loadComments.removeEventListener('click', onLoadCommentsButtonClick);
-
   });
 };
 
 const onCloseBigPictureClick = () => {
   closeBigPicture();
-
   document.removeEventListener('keydown', onBigPictureEscKeyDown);
 };
 

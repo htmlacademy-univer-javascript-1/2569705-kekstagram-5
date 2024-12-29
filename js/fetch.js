@@ -3,7 +3,6 @@ const Urls = {
   POST: 'https://29.javascript.htmlacademy.pro/kekstagram/'
 };
 
-
 const sendRequest = (onSuccess, onError, method, body) =>
   fetch(
     Urls[method], {method: method, body: body},

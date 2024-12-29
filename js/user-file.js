@@ -1,9 +1,9 @@
-const fileChooser = document.querySelector('.img-upload__input');
+const imageFileInput = document.querySelector('.img-upload__input');
 const preview = document.querySelector('.img-upload__preview img');
 const effectPreviews = document.querySelectorAll('.effects__preview');
 
 const setPreview = () => {
-  const file = fileChooser.files[0];
+  const file = imageFileInput.files[0];
   const fileUrl = URL.createObjectURL(file);
   preview.src = fileUrl;
   effectPreviews.forEach((el) => {
