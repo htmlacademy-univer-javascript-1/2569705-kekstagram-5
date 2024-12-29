@@ -1,6 +1,7 @@
 import { addFilters, operateScale, onFilterClick, setDefaultFilter,
   imagePreview, scaleOutput, filterButtonList, imageForm } from './effects.js';
 import { uploadData } from './fetch.js';
+import { setPreview } from './myImage.js';
 import { showUploadErrorMessage, showUploadSucccessMessage } from './util.js';
 const form = document.querySelector('.img-upload__form');
 const scaleDecreaseButton = form.querySelector('.scale__control--smaller');
@@ -40,6 +41,7 @@ const showModal = () => {
   scaleAddButton.addEventListener('click', operateScale);
   scaleDecreaseButton.addEventListener('click', operateScale);
   addFilters();
+  setPreview();
 };
 
 const hideModal = () => {

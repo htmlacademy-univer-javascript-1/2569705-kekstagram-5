@@ -33,7 +33,7 @@ const closeOnEscKeyDown = (evt, closeFunction) => {
 };
 
 const onModalKeydown = (evt) => {
-  closeOnEscKeyDown(evt, deleteResultMessage());
+  closeOnEscKeyDown(evt, deleteResultMessage);
 };
 
 const onModalButtonClick = () => {
