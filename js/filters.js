@@ -1,15 +1,16 @@
-import { renderSmallPictures, deletePhotos } from './smallPictures.js';
+import { renderSmallPictures, deletePhotos } from './small-pictures.js';
 import { debounce, shuffleArray } from './util.js';
 import { photos } from './main.js';
 
 const TIMEOUT_DELAY = 500;
 const RANDOM_PHOTOS_LENGTH = 10;
-const FILTERS = {
+const BUTTON_ACTIVITY_CLASS = 'img-filters__button--active';
+
+const Filters = {
   'filter-default': () => photos.slice(),
   'filter-random': () => shuffleArray(photos.slice(0, RANDOM_PHOTOS_LENGTH)),
   'filter-discussed': () => photos.slice().sort((a, b) => b.comments.length - a.comments.length)
 };
-const BUTTON_ACTIVITY_CLASS = 'img-filters__button--active';
 
 const imgFilters = document.querySelector('.img-filters');
 const imgFiltersForm = imgFilters.querySelector('.img-filters__form');
@@ -19,7 +20,7 @@ const isButton = (evt) => evt.target.tagName === 'BUTTON';
 const onImgFiltersFormClick = debounce((evt) => {
   if (isButton(evt)) {
     deletePhotos();
-    renderSmallPictures(FILTERS[evt.target.id]());
+    renderSmallPictures(Filters[evt.target.id]());
   }
 }, TIMEOUT_DELAY);
 

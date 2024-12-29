@@ -1,38 +1,10 @@
-function getRandomInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-function createRandomNumber (min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
-function createNumbersMassive (min, max) {
-  const numbersMassive = [];
-
-  for(let i = min; i <= max; i++) {
-    numbersMassive.push(i);
-  }
-  return numbersMassive;
-}
-
 const closeOnEscKeyDown = (evt, closeFunction) => {
   if (evt.key === 'Escape') {
     closeFunction();
   }
 };
 
-const onModalKeydown = (evt) => {
+const onModalEscKeydown = (evt) => {
   closeOnEscKeyDown(evt, deleteResultMessage);
 };
 
@@ -40,7 +12,7 @@ const onModalButtonClick = () => {
   deleteResultMessage();
 };
 
-const awayModalClick = (evt) => {
+const onAwayModalClick = (evt) => {
   if (evt.target === document.body.lastElementChild) {
     deleteResultMessage();
   }
@@ -49,14 +21,15 @@ const awayModalClick = (evt) => {
 function deleteResultMessage () {
   const addedMessage = document.body.lastElementChild;
   addedMessage.querySelector('button').removeEventListener('click', onModalButtonClick);
-  document.removeEventListener('keydown', onModalKeydown);
-  document.removeEventListener('click', awayModalClick);
+  document.removeEventListener('keydown', onModalEscKeydown);
+  document.removeEventListener('click', onAwayModalClick);
   addedMessage.remove();
 
 }
 
 const alertLoadError = () => {
   const messageAlert = document.createElement('div');
+  messageAlert.classList.add('data-error');
   messageAlert.style.position = 'absolute';
   messageAlert.style.left = 0;
   messageAlert.style.top = 0;
@@ -80,8 +53,8 @@ const showModal = (templateId) => {
 const showResultMessage = (templateId) => {
   showModal(templateId);
   const btn = document.querySelector(`.${templateId}__button`);
-  document.addEventListener('keydown', onModalKeydown);
-  document.addEventListener('click', awayModalClick);
+  document.addEventListener('keydown', onModalEscKeydown);
+  document.addEventListener('click', onAwayModalClick);
   btn.addEventListener('click', onModalButtonClick);
 };
 
@@ -104,4 +77,4 @@ const shuffleArray = (array) => {
   return array;
 };
 
-export {getRandomInteger, getRandomArrayElement, createRandomNumber, closeOnEscKeyDown, createNumbersMassive, alertLoadError, showUploadErrorMessage, showUploadSucccessMessage, debounce, shuffleArray };
+export {closeOnEscKeyDown, alertLoadError, showUploadErrorMessage, showUploadSucccessMessage, debounce, shuffleArray};

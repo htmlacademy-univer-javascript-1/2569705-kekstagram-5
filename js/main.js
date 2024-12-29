@@ -1,9 +1,9 @@
-import {renderSmallPictures} from './smallPictures.js';
+import {renderSmallPictures} from './small-pictures.js';
 import { alertLoadError } from './util.js';
 import { getData } from './fetch.js';
-import './userForm.js';
-import { setFormSubmit } from './userForm.js';
+import { setFormSubmit } from './user-form.js';
 import { addPhotosFilters } from './filters.js';
+
 let photos = [];
 
 const onLoadSuccess = (data) => {
